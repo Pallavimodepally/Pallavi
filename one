@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hostel Complaint Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+      width: 350px;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #4CAF50;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .complaints {
+      margin-top: 20px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .complaint-box {
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      background: #fafafa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Hostel Complaint Portal</h2>
+    <form id="complaintForm">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="text" id="room" placeholder="Room Number" required>
+      <textarea id="complaint" placeholder="Enter your complaint" rows="4" required></textarea>
+      <label><input type="checkbox" id="anonymous"> Hide my details</label><br><br>
+      <button type="submit">Submit Complaint</button>
+    </form>
+
+    <div class="complaints" id="complaintList"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById("complaintForm");
+    const complaintList = document.getElementById("complaintList");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      let name = document.getElementById("name").value;
+      let room = document.getElementById("room").value;
+      let complaint = document.getElementById("complaint").value;
+      let anonymous = document.getElementById("anonymous").checked;
+
+      let displayName = anonymous ? "Anonymous" : name + " (Room " + room + ")";
+
+      let div = document.createElement("div");
+      div.classList.add("complaint-box");
+      div.innerHTML = <strong>${displayName}</strong><p>${complaint}</p>;
+
+      complaintList.appendChild(div);
+
+      form.reset();
+    });
+  </script>
+</body>
+</html>
